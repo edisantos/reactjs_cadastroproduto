@@ -8,3 +8,8 @@ form {
     background-color: #778899;
     padding: 2%;
 }
+
+table th,
+td {
+    text-align: center;
+}
