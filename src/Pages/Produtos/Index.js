@@ -1,6 +1,6 @@
 import React from 'react'
 import Produtos from '../../Services/produtos'
-
+import { withRouter } from 'react-router-dom';
 const estadoInicial = {
     nome: '',
     sn: '',
@@ -46,6 +46,19 @@ class CadastroProdutos extends React.Component{
      }
      limparCampos = ()=>{
          this.setState(estadoInicial)
+     }
+
+     componentDidMount(){
+       const sn = this.props.match.params.sn
+       if(sn){
+         const resultado =   this.service
+                             .obterProdutos()
+                             .filter( produto => produto.sn === sn )
+                             if(resultado.length ===1){
+                                 const produtoEncontrao = resultado[0]
+                                 this.setState({ ...produtoEncontrao })
+                             }
+       }
      }
     render(){
         return(

@@ -1,7 +1,8 @@
 import React from 'react'
 import Produtos from '../../Services/produtos'
+import {withRouter} from 'react-router-dom'
 
-export default class ConsultaProdutos extends React.Component{
+class ConsultaProdutos extends React.Component{
 
     state = {
         produtos :[]
@@ -15,6 +16,11 @@ export default class ConsultaProdutos extends React.Component{
     componentDidMount(){
       const produtos = this.service.obterProdutos();
       this.setState({produtos})
+    }
+
+    preparaEditar = (sn)=>{
+        console.log('sn para editar', sn)
+     this.props.history.push(`/cadastro-produtos/${sn}`)
     }
   render(){
      return(
@@ -45,7 +51,14 @@ export default class ConsultaProdutos extends React.Component{
                         <td>{produto.sn}</td>
                         <td>{produto.categoria}</td>
                         <td>{produto.valor}</td>
-                        <td></td>
+                        <td>
+                            <button type="button" 
+                            className="btn btn-outline-primary" 
+                            onClick={()=>this.preparaEditar(produto.sn)}>
+                                Editar
+                                </button>
+                            <button type="button" className="btn btn-outline-danger">Delete</button>
+                        </td>
                     </tr>
                 )
 
@@ -64,3 +77,4 @@ export default class ConsultaProdutos extends React.Component{
   }
 
 }
+export default withRouter(ConsultaProdutos);
