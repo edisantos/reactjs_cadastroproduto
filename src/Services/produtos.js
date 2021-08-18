@@ -36,6 +36,16 @@ export default class Produtos{
        return JSON.parse(produtos)
     }
 
+    obterIndex = (sn) =>{
+        let index = null;
+        this.obterProdutos().forEach((produto,i )=> {
+            if(produto.sn === sn){
+                index = i;
+            }
+        })
+        return index;
+    } 
+
     salvar = (produto)=>{
 
         this.validar(produto);
@@ -47,8 +57,14 @@ export default class Produtos{
            produtos = JSON.parse(produtos)
        }
 
-       produtos.push(produto);
-
+     const index =  this.obterIndex(produto.sn);
+     if(index === null){
+        produtos.push(produto);
+     }else{
+         produtos[index] = produto;
+     }
+      
+     
        localStorage.setItem(PRODUTOS,JSON.stringify(produtos))
     }
 }
