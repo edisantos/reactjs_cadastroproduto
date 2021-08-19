@@ -22,6 +22,11 @@ class ConsultaProdutos extends React.Component{
         console.log('sn para editar', sn)
      this.props.history.push(`/cadastro-produtos/${sn}`)
     }
+
+    deletar = (sn)=>{
+          const produtos =  this.service.deletar(sn);
+          this.setState({produtos})
+    }
   render(){
      return(
         <div className="container">
@@ -57,7 +62,7 @@ class ConsultaProdutos extends React.Component{
                             onClick={()=>this.preparaEditar(produto.sn)}>
                                 Editar
                                 </button>
-                            <button type="button" className="btn btn-outline-danger">Delete</button>
+                            <button type="button" onClick={()=> this.deletar(produto.sn)} className="btn btn-outline-danger">Delete</button>
                         </td>
                     </tr>
                 )

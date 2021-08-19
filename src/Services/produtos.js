@@ -33,6 +33,9 @@ export default class Produtos{
     
     obterProdutos = (produto) =>{
        const produtos = localStorage.getItem(PRODUTOS)
+       if(!produtos){
+           return []
+       }
        return JSON.parse(produtos)
     }
 
@@ -45,6 +48,16 @@ export default class Produtos{
         })
         return index;
     } 
+    
+     deletar = (sn) =>{
+       const index = this.obterIndex(sn);
+       if(index!== null){
+           const produtos = this.obterProdutos();
+          produtos.splice(index, 1)
+          localStorage.setItem(PRODUTOS,JSON.stringify(produtos))
+          return produtos
+       }
+     }
 
     salvar = (produto)=>{
 

@@ -7,7 +7,8 @@ const estadoInicial = {
     categoria: '',
     valor: 0,
     sucesso: false,
-    errors:[]
+    errors:[],
+    atualizando: false
 }
 
 class CadastroProdutos extends React.Component{
@@ -26,7 +27,7 @@ class CadastroProdutos extends React.Component{
      }
 
      onSubmit = (event) =>{
-        
+        event.preventDefault();
          const produtos ={
              nome: this.state.nome,
              sn: this.state.sn,
@@ -56,7 +57,7 @@ class CadastroProdutos extends React.Component{
                              .filter( produto => produto.sn === sn )
                              if(resultado.length ===1){
                                  const produtoEncontrao = resultado[0]
-                                 this.setState({ ...produtoEncontrao })
+                                 this.setState({ ...produtoEncontrao, atualizando: true })
                              }
        }
      }
@@ -67,9 +68,12 @@ class CadastroProdutos extends React.Component{
                 
             <div className="card">
                 <div className="card-header">
-                    <label>Cadastro de cursos</label>
+                
+                    {this.state.atualizando ? 'Em processo de atualização': 'Cadastro'} de produtos
+                  
                 </div>
                 <div className="card-body">
+                    <form id="frmProdutos" onSubmit={this.onSubmit}>
                     <div className="row">
                         <div className="col-sm-4">
                         <img src="img/ecommerce.png" alt="imagem" width="100%"/>
@@ -91,6 +95,7 @@ class CadastroProdutos extends React.Component{
                         <input type="text" 
                         onChange={this.onChange} 
                         value={this.state.sn} 
+                        disabled={this.state.atualizando}
                         className="form-control" 
                         name="sn" 
                         />
@@ -116,8 +121,8 @@ class CadastroProdutos extends React.Component{
                         />
                         </div>
                         <div className="d-grid gap-2">
-                            <button onClick={this.onSubmit} className="btn btn-lg btn-primary">
-                                Registrar
+                            <button  type="submit" className="btn btn-lg btn-primary">
+                               {this.state.atualizando? 'Atualizar':'Registrar'} 
                             </button>
                             <button onClick={this.limparCampos} className="btn btn-lg btn-dark">
                                 Limpar
@@ -128,6 +133,8 @@ class CadastroProdutos extends React.Component{
                        
                         
                     </div>
+                    </form>
+                    
                     {this.state.sucesso &&
                     (
                         <div className="alert alert-dismissible alert-success">
