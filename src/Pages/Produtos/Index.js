@@ -1,4 +1,5 @@
 import React from 'react'
+import Card from '../../Components/card'
 import Produtos from '../../Services/produtos'
 import { withRouter } from 'react-router-dom';
 const estadoInicial = {
@@ -66,12 +67,12 @@ class CadastroProdutos extends React.Component{
             <div className="container">
                 <br/>
                 
-            <div className="card">
-                <div className="card-header">
+            <Card header={this.state.atualizando ? 'Atualização de produtos': 'Cadastro de produtos'}>
+               {/*  <div className="card-header">
                 
                     {this.state.atualizando ? 'Em processo de atualização': 'Cadastro'} de produtos
                   
-                </div>
+                </div> */}
                 <div className="card-body">
                     <form id="frmProdutos" onSubmit={this.onSubmit}>
                     <div className="row">
@@ -159,7 +160,7 @@ class CadastroProdutos extends React.Component{
                     
                     }
                 </div>
-            </div>
+            </Card>
             </div>
         )
     }
